@@ -4,6 +4,8 @@ namespace App\Services\Event\impl;
 
 use App\Http\Requests\DataTableRequest;
 use App\Http\Requests\Event\AddEventRequest;
+use App\Http\Requests\Event\DeleteEventRequest;
+use App\Http\Requests\Event\UpdateEventRequest;
 use App\Models\Event;
 use App\Services\Event\EventService;
 use App\Shareds\BaseService;
@@ -69,5 +71,21 @@ class EventServiceImpl extends BaseService implements EventService
         $data = $this->event->create($request->all());
         
         return $data; 
+    }
+
+    public function updates(UpdateEventRequest $request)
+    {
+        $data = $this->find($request->id);
+        $data->update($request->all());
+
+        return $data;
+    }
+
+    public function deletes(DeleteEventRequest $request)
+    {
+        $data = $this->find($request->id);
+        $data->delete($request->id);
+
+        return $data;
     }
 }
