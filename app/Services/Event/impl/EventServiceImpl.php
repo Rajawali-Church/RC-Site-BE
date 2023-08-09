@@ -3,6 +3,7 @@
 namespace App\Services\Event\impl;
 
 use App\Http\Requests\DataTableRequest;
+use App\Http\Requests\Event\GetEventRequest;
 use App\Models\Event;
 use App\Services\Event\EventService;
 use App\Shareds\BaseService;
@@ -49,5 +50,17 @@ class EventServiceImpl extends BaseService implements EventService
                     ->orderBy($sort, $order);
         
         return Paginator::paginate($queryData, $request->page, $request->per_page);
+    }
+
+    public function find(int $id)
+    {
+        return $this->event
+                ->where('id', $id)
+                ->with(
+                    [
+                        'createdBy'
+                    ]
+                )
+                ->firstOrFail();
     }
 }
