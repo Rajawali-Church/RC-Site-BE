@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\Auth\AuthService;
 use App\Services\Auth\impl\AuthServiceImpl;
+use App\Services\Event\EventService;
+use App\Services\Event\impl\EventServiceImpl;
 use App\Services\User\impl\UserServiceImpl;
 use App\Services\User\UserService;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(UserService::class, UserServiceImpl::class);
         $this->app->bind(AuthService::class, AuthServiceImpl::class);
+        $this->app->bind(EventService::class, EventServiceImpl::class);
     }
 
     /**

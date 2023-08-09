@@ -2,6 +2,7 @@
 
 use App\Constants\Auth\PermissionConstant;
 use App\Http\Controllers\auth\UserAuthController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Food\FoodController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Restaurant\RestaurantController;
@@ -41,8 +42,12 @@ Route::middleware(['cors', 'json.response', 'auth:api'])->group(function () {
     Route::delete('/logout', [UserAuthController::class, 'logout']);
     Route::get('/me', [UserAuthController::class, 'me']);
 
-    Route::group(['prefix' => '/restaurant'], function () {
-        Route::get('/my', [RestaurantController::class, 'showByToken']);
+    Route::group(['prefix' => '/event'], function () {
+        Route::get('/', [EventController::class, 'index']);
+        Route::get('/{id}', [EventController::class, 'getOneById']);
+        Route::post('/', [EventController::class, 'create']);
+        Route::put('/{id}', [EventController::class, 'update']);
+        Route::delete('/{id}', [EventController::class, 'delete']);
 
         Route::middleware(['permission:' . PermissionConstant::UPDATE_RESTAURANT . '|' . PermissionConstant::IS_SUPER_ADMIN, 'is_the_owner'])->put('/update/{restaurant_id}', [RestaurantController::class, 'updateById']);
 
