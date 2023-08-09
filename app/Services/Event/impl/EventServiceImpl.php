@@ -3,7 +3,7 @@
 namespace App\Services\Event\impl;
 
 use App\Http\Requests\DataTableRequest;
-use App\Http\Requests\Event\GetEventRequest;
+use App\Http\Requests\Event\AddEventRequest;
 use App\Models\Event;
 use App\Services\Event\EventService;
 use App\Shareds\BaseService;
@@ -62,5 +62,12 @@ class EventServiceImpl extends BaseService implements EventService
                     ]
                 )
                 ->firstOrFail();
+    }
+
+    public function add(AddEventRequest $request)
+    {
+        $data = $this->event->create($request->all());
+        
+        return $data; 
     }
 }

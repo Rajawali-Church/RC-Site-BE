@@ -45,6 +45,7 @@ Route::middleware(['cors', 'json.response', 'auth:api'])->group(function () {
     Route::group(['prefix' => '/event'], function () {
         Route::get('/', [EventController::class, 'index']);
         Route::get('/{id}', [EventController::class, 'getOneById']);
+        Route::post('/', [EventController::class, 'create']);
 
         Route::middleware(['permission:' . PermissionConstant::UPDATE_RESTAURANT . '|' . PermissionConstant::IS_SUPER_ADMIN, 'is_the_owner'])->put('/update/{restaurant_id}', [RestaurantController::class, 'updateById']);
 

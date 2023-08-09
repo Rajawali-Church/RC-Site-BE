@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DataTableRequest;
+use App\Http\Requests\Event\AddEventRequest;
 use App\Http\Requests\Event\GetEventRequest;
 use App\Http\Resources\Event\DetailResource;
 use App\Http\Resources\Event\IndexCollection;
@@ -42,6 +43,17 @@ class EventController extends Controller
     {
         try {
             $data = $this->eventService->find($request?->id);
+
+            return ResponseStatus::response(new DetailResource($data));
+        } catch (Error $err) {
+            return ResponseStatus::response(['Message' => $err->getMessage()], 'Server Internal Error', 500);
+        }
+    }
+
+    public function create(AddEventRequest $request)
+    {
+        try {
+            $data = $this->eventService->add($request);
 
             return ResponseStatus::response(new DetailResource($data));
         } catch (Error $err) {
