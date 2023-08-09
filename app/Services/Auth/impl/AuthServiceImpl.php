@@ -15,9 +15,8 @@ class AuthServiceImpl extends BaseService implements AuthService
     }
 
     public function login($username, $pass) {
-        $credentials = ['username' => $username, 'password' => $pass];
-        
-        $token = auth('api')->attempt($credentials);
+        $token = auth('api')->attempt(['username' => $username, 'password' => $pass]);
+
         if (!$token)
             return (object) ['data' => 'Unauthorized', 'status' => 'Unauthorized', 'statusCode' => 401];
 

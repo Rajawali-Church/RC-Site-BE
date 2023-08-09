@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
                 'full_name' => 'Bakuretsu Magic',
                 'username' => 'bakuretsu',
                 'password' => Hash::make('doomhammer', ['rounds' => '12']),
+                'role_id' => 1,
                 'created_at' => null,
                 'updated_at' => null,
                 'deleted_at' => null,
