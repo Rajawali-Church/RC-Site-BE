@@ -8,12 +8,9 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class UserIndexCollection extends ResourceCollection
 {
     /**
-     * Transform the resource collection into an array.
+     * The "data" wrapper that should be applied.
      *
-     * @return array<int|string, mixed>
+     * @var string|null
      */
-    public function toArray(Request $request): array
-    {
-        return parent::toArray($request);
-    }
+    public static $wrap = 'items';
 }

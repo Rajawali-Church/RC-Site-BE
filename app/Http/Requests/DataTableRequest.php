@@ -29,6 +29,8 @@ class DataTableRequest extends FormRequest
             'order' => ['nullable', 'in:desc,asc'],
             'page' => ['numeric'],
             'per_page' => ['numeric'],
+            'month' => ['integer','between:1,12'],
+            'year' => ['integer'],
         ];
     }
 }
