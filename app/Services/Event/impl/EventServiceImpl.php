@@ -43,6 +43,12 @@ class EventServiceImpl extends BaseService implements EventService
                         'created_at',
                         'updated_at'
                     ])
+                    ->when($request->month, function ($query) use ($request) {
+                        $query->whereMonth('date', '=', $request->month);
+                    })
+                    ->when($request->year, function ($query) use ($request) {
+                        $query->whereYear('date', '=', $request->year);
+                    })
                     ->when($request->search, function ($query) use ($request) {
                         $query->where('name', 'like', "%$request->search%");
                     })

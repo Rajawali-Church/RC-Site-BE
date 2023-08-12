@@ -9,6 +9,7 @@ use App\Http\Controllers\Restaurant\RestaurantController;
 use App\Http\Controllers\Table\TableController;
 use App\Http\Controllers\Transaction\TransactionController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Volunteer\VolunteerController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -41,6 +42,10 @@ Route::middleware(['cors', 'json.response'])->group(function () {
 Route::middleware(['cors', 'json.response', 'auth:api'])->group(function () {
     Route::delete('/logout', [UserAuthController::class, 'logout']);
     Route::get('/me', [UserAuthController::class, 'me']);
+    
+    Route::group(['prefix' => '/user'], function () {
+        Route::get('/', [UserController::class, 'index']);
+    });
 
     Route::group(['prefix' => '/event'], function () {
         Route::get('/', [EventController::class, 'index']);
@@ -52,8 +57,15 @@ Route::middleware(['cors', 'json.response', 'auth:api'])->group(function () {
         Route::middleware(['permission:' . PermissionConstant::UPDATE_RESTAURANT . '|' . PermissionConstant::IS_SUPER_ADMIN, 'is_the_owner'])->put('/update/{restaurant_id}', [RestaurantController::class, 'updateById']);
 
         // RESTAURANT TABLE REQUEST
-        Route::group(['prefix' => '/{restaurant_id}/table'], function () {
-            Route::middleware(['permission:' . PermissionConstant::GET_ALL_TABLE_BY_RESTAURANT_ID, 'is_the_owner'])->get('/', [TableController::class, 'getAllByRestaurantID']);
+        Route::group(['prefix' => '/{id}/volunteer'], function () {
+            Route::get('/', [VolunteerController::class, 'findByEventID']);
         });
+    });
+
+    Route::group(['prefix' => '/volunteer'], function () {
+        Route::get('/{id}', [VolunteerController::class, 'show']);
+        Route::post('/', [VolunteerController::class, 'create']);
+        Route::put('/{id}', [VolunteerController::class, 'update']);
+        Route::delete('/{id}', [VolunteerController::class, 'delete']);
     });
 });

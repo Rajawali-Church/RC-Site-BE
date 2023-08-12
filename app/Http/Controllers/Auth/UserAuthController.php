@@ -44,7 +44,8 @@ class UserAuthController extends Controller
      */
     public function me() {
         try {
-            return ResponseStatus::response(new AuthMeResource(auth()->user()));
+            // ilangin 'api' kalau error
+            return ResponseStatus::response(new AuthMeResource(auth('api')->user()));
         } catch (Error $err) {
             return ResponseStatus::response(['Message' => $err->getMessage()], 'Server Internal Error', 500);
         }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\User;
+namespace App\Http\Resources\Voluteer;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserIndexCollection extends ResourceCollection
+class GetManyVolunteerCollection extends ResourceCollection
 {
     /**
      * The "data" wrapper that should be applied.

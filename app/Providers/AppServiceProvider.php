@@ -8,6 +8,8 @@ use App\Services\Event\EventService;
 use App\Services\Event\impl\EventServiceImpl;
 use App\Services\User\impl\UserServiceImpl;
 use App\Services\User\UserService;
+use App\Services\Volunteer\impl\VolunteerServiceImpl;
+use App\Services\Volunteer\VolunteerService;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserService::class, UserServiceImpl::class);
         $this->app->bind(AuthService::class, AuthServiceImpl::class);
         $this->app->bind(EventService::class, EventServiceImpl::class);
+        $this->app->bind(VolunteerService::class, VolunteerServiceImpl::class);
     }
 
     /**
